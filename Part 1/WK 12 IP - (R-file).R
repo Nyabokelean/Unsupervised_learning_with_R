@@ -192,8 +192,9 @@ plot(income, age, main="Scatterplot Age VS Daily Time spent",
      xlab="Age ", ylab="Daily Time Spent ", pch=19)
 
 ## Implementing the solution
+
 # Selecting the columns that will be used for modelling
-#iris[, c(1, 2, 3, 4)]
+
 advert <- advertising[,c(1, 2, 3, 4, 7)]
 head(advert)
 

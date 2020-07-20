@@ -23,7 +23,9 @@ Bivariate Analysis
 
 5.Bivariate Analysis
 
-6.Conclusion
+6.Modelling with KNN
+
+7.Conclusion
 
 ## Reading the data
 
@@ -117,27 +119,27 @@ we will not drop the outliers for now
 # bOxplot for the Daily time spent column
 
 boxplot(advertising$Daily.Time.Spent.on.Site)
-
 ```
+There are no outliers for the Daily time spent on site column
 
 ```
 # Age boxplot
 boxplot(advertising$Age)
 
 ```
-
+There are no outliers for the Age column
 ```
 # Area Income
 boxplot(advertising$Area.Income)
 
 ```
-This column has a number o outliers and it would be advisable to remove them so as to achieve better results
+This column has a number of outliers and it would be advisable to remove them so as to achieve better results
 ```
 # Daily internet usage
 boxplot(advertising$Daily.Internet.Usage)
 
 ```
-
+This one has no outliers
 
 ### Summary of numeric columns
 ```
@@ -163,7 +165,8 @@ var(advertising$Age)
 range(advertising$Age)
 quantile(advertising$Age)
 ```
-
+The target audience has an age range of between 20 and 60. The average age is 36. Most of the viewers on site are 
+in their thirties.
 #### daily time spent on site
 ``` 
 mean(advertising$Daily.Time.Spent.on.Site)
@@ -174,6 +177,7 @@ var(advertising$Daily.Time.Spent.on.Site)
 range(advertising$Daily.Time.Spent.on.Site)
 quantile(advertising$Daily.Time.Spent.on.Site)
 ```
+people spend a minimum of 30 mins and a maximum of 1 hr and 30 mins on site. On average an hour is spent on the site.
 
 #### Area income
 ```
@@ -207,7 +211,7 @@ var(advertising$Male)
 range(advertising$Male)
 quantile(advertising$Male)
 ```
-
+The are slightly more female than male viewers 
 
 #### clicked on ad
 ```
@@ -219,6 +223,7 @@ var(advertising$Clicked.on.Ad)
 range(advertising$Clicked.on.Ad)
 quantile(advertising$Clicked.on.Ad)
 ```
+The number of clicks are fairly balanced
 
 ### Graphical Analysis
 #### Bar graphs
@@ -302,6 +307,7 @@ There is a weak negative correlation between these variables
 advert <- advertising[,c(1, 2, 3, 4, 7)]
 head(advert)
 ```
+
 ```
 # Making the data to be random ,we shuffle the rows before splitting
 
@@ -314,11 +320,6 @@ x_train = scale(train[,1:4])
 x_test = scale(test[,1:4])
 y_train = train[,5]
 y_test = test[,5]
-```
-```
-# This is alist of some of the available models
-
-paste(names(getModelInfo())[1:50],collapse = ", ")
 ```
 
 ### KNN
@@ -334,20 +335,23 @@ ypred <- knn(train = x_train, test = x_test,
 CrossTable(x = y_test, y = ypred,
            prop.chisq = FALSE)
 ```
+This shows that that it classified 98 correcly and 2 wrongly in the 0 label
+
+This shows that that it classified 89 correcly and 11 wrongly in the 1 label
+
+The total predictions were 200
 ```
 # Confusion matrix
 
 table(y_test,ypred)
 ```
+This is more simplified with the sam information as above
 ```
 # The accuracy
 
 print(mean(y_test == ypred ))
 ```
+We have an accuracy of 93.5% with 21 neighbours
 
 ## Conclusion
-Based on the analysis above, all of these variables play a vital role in whether
-the advertisement will be clicked on or not. They should therefore pursue modelling 
-to see which variables are more important than others and these can help in getting 
-identifying areas to tweak so as to get more clicks on the ads and therefore more money.
-
+The analysis was a success with 93.5% accuracy.
